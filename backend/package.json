@@ -1,0 +1,29 @@
+{
+  "name": "todo_list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "commonjs",
+  "engines": {
+    "node": "20.x"
+  },
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "author": "carlos henrique cruz xavier",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.19.1",
+    "cors": "^2.8.5",
+    "docker": "^1.0.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongodb": "^6.8.1",
+    "mysql2": "^3.5.2",
+    "prisma": "^5.19.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.46.0",
+    "nodemon": "^3.0.1"
+  }
+}
