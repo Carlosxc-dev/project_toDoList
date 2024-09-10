@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "prisma generate && node src/server.js",
-    "start": "node src/server.js"
+    "start": "prisma generate && node src/server.js"
   },
   "author": "carlos henrique cruz xavier",
   "license": "ISC",
