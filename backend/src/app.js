@@ -9,7 +9,13 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(express.json()); // conseguir trabalhar req, res com json
-app.use(cors()); //
+app.use(
+  cors({
+    origin: "https://todolist-frontend-six.vercel.app/",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+); //
 app.use(router); // toda requisicao do navegador app usa o router para gerenciar
 
 module.exports = app;
