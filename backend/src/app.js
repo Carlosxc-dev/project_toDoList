@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(express.json()); // conseguir trabalhar req, res com json
 app.use(
   cors({
-    origin: "https://todolist-frontend-six.vercel.app/",
+    origin: "https://project-to-do-list-fawn.vercel.app",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
