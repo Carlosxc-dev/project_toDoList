@@ -14,6 +14,7 @@ app.use(
     origin: "https://project-to-do-list-fawn.vercel.app",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 ); //
 app.use(router); // toda requisicao do navegador app usa o router para gerenciar
