@@ -11,13 +11,5 @@
       "src": "/(.*)",
       "dest": "src/server.js"
     }
-  ],
-  "build": {
-    "env": {
-      "DATABASE_URL": "mongodb+srv://root:1988@todolist.wfobw.mongodb.net/?retryWrites=true&w=majority&appName=todolist"
-    }
-  },
-  "scripts": {
-    "build": "prisma generate"
-  }
+  ]
 }
