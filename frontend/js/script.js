@@ -7,7 +7,10 @@ const url = "https://project-to-do-list-h4ox.vercel.app";
 
 //api node que faz requisicao para backend
 const fetchTasks = async () => {
-  const response = await fetch(`${url}/tasks`);
+  const response = await fetch(`${url}/tasks`, {
+    mode: "no-cors",
+    credentials: "include",
+  });
   const tasks = await response.json();
   console.log(tasks);
   return tasks;
@@ -20,6 +23,8 @@ const addTask = async (event) => {
 
   await fetch(`${url}/tasks`, {
     method: "post",
+    credentials: "include",
+    mode: "no-cors",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(task),
   });
@@ -31,6 +36,8 @@ const addTask = async (event) => {
 const deleteTask = async (id) => {
   await fetch(`${url}/tasks/${id}`, {
     method: "delete",
+    mode: "no-cors",
+    credentials: "include",
   });
 
   loadTasks();
@@ -39,6 +46,8 @@ const deleteTask = async (id) => {
 const updateTask = async ({ id, title, status }) => {
   await fetch(`${url}/tasks/${id}`, {
     method: "put",
+    mode: "no-cors",
+    credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ title, status }),
   });
@@ -47,7 +56,10 @@ const updateTask = async ({ id, title, status }) => {
 };
 
 const number_task = async () => {
-  const res = await fetch(`${url}/tasks/number`);
+  const res = await fetch(`${url}/tasks/number`, {
+    mode: "no-cors",
+    credentials: "include",
+  });
   const count = await res.json();
   number_html.innerText = count;
 };
