@@ -10,14 +10,14 @@ const getAll = async () => {
 const createTask = async (task) => {
   const { title } = task;
 
-  const createdTask = await prisma.Task.create({
+  const createdtask = await prisma.Task.create({
     data: {
       title,
       status: "pendente",
     },
   });
 
-  return createdTask;
+  return createdtask;
 };
 
 // Deletar uma task do banco de dados
