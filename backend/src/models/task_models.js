@@ -2,7 +2,7 @@ const prisma = require("./conection");
 
 // Busca no banco de dados todas as tarefas
 const getAll = async () => {
-  const tasks = await prisma.task.findMany();
+  const tasks = await prisma.Task.findMany();
   return tasks;
 };
 
@@ -10,7 +10,7 @@ const getAll = async () => {
 const createTask = async (task) => {
   const { title } = task;
 
-  const createdTask = await prisma.task.create({
+  const createdTask = await prisma.Task.create({
     data: {
       title,
       status: "pendente",
@@ -22,7 +22,7 @@ const createTask = async (task) => {
 
 // Deletar uma task do banco de dados
 const deleteTask = async (id) => {
-  const removedTask = await prisma.task.delete({
+  const removedTask = await prisma.Task.delete({
     where: {
       id: id, // ID como String
     },
@@ -35,7 +35,7 @@ const deleteTask = async (id) => {
 const updateTask = async (id, task) => {
   const { title, status } = task;
 
-  const updatedTask = await prisma.task.update({
+  const updatedTask = await prisma.Task.update({
     where: { id: id }, // ID como String
     data: { title, status },
   });
@@ -45,7 +45,7 @@ const updateTask = async (id, task) => {
 
 // Busca quantas tasks existem no banco de dados
 const number_task = async () => {
-  const count = await prisma.task.count();
+  const count = await prisma.Task.count();
   return count;
 };
 
