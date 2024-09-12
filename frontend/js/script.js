@@ -3,8 +3,8 @@ const addForm = document.querySelector(".add-form");
 const inputTask = document.querySelector(".input-task");
 const number_html = document.querySelector(".n_task");
 
-//const url = "https://project-to-do-list-h4ox.vercel.app";
-const url = "http://localhost:3306";
+const url = "https://project-to-do-list-h4ox.vercel.app";
+//const url = "http://localhost:3306";
 
 //api node que faz requisicao para backend
 const fetchTasks = async () => {

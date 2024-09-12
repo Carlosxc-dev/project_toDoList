@@ -9,7 +9,12 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(express.json()); // conseguir trabalhar req, res com json
-app.use(cors()); // permitir que o frontend acesse o backend
+app.use(
+  cors({
+    origin: "https://project-to-do-list-fawn.vercel.app",
+    credentials: true,
+  })
+); // permitir que o frontend acesse o backend
 app.use(router); // toda requisicao do navegador app usa o router para gerenciar
 
 module.exports = app;
