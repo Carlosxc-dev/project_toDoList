@@ -5,6 +5,10 @@ const middleware = require("./middlewares/middlewaresTask");
 const router = express.Router();
 const taskController = require("./controller/taskController");
 
+router.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
 // Rota para buscar todas as tarefas
 router.get("/tasks", taskController.getAllTasks);
 
