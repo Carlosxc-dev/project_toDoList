@@ -6,7 +6,7 @@ const router = express.Router();
 const taskController = require("./controller/taskController");
 
 router.get("/", (req, res) => {
-  res.send("Hello World   !");
+  res.send("Hello todo list!");
 });
 
 // Rota para buscar todas as tarefas
