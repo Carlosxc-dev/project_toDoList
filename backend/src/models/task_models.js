@@ -12,7 +12,7 @@ const createTask = async (task) => {
 
   const createdtask = await prisma.Task.create({
     data: {
-      title,
+      title: title,
       status: "pendente",
     },
   });
