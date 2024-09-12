@@ -7,9 +7,7 @@ const getAll = async () => {
 };
 
 // Criar uma tarefa no banco de dados
-const createTask = async (task) => {
-  const { title } = task;
-
+const createTask = async (title) => {
   const createdtask = await prisma.Task.create({
     data: {
       title: title,

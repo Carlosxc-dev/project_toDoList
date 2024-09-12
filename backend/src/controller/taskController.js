@@ -4,6 +4,7 @@ const taskmodel = require("../models/task_models");
 const getAllTasks = async (req, res) => {
   try {
     const tasks = await taskmodel.getAll();
+    console.log("models === ", tasks);
     res.status(200).json(tasks);
   } catch (error) {
     console.error("Erro ao buscar tarefas:", error);
@@ -14,8 +15,14 @@ const getAllTasks = async (req, res) => {
 // Função para criar uma nova tarefa
 const createTask = async (req, res) => {
   try {
-    const task = req.body;
-    const createdTask = await taskmodel.createTask(task);
+    const { title } = req.body;
+    console.log("tasks === ", title);
+
+    if (!title) {
+      return res.status(400).json({ error: "Título é obrigatório" });
+    }
+
+    const createdTask = await taskmodel.createTask(title);
     res.status(201).json(createdTask);
   } catch (error) {
     console.error("Erro ao criar tarefa:", error);
