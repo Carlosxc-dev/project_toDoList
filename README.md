@@ -29,9 +29,12 @@
 
 <h2 id="started">📌 About</h2>
 
-ToDoList é um projeto desenvolvido para aplicar conceitos de frontend e backend. Ele permite ao usuário criar, visualizar, editar e excluir tarefas em uma lista de afazeres. No frontend, utiliza HTML, CSS e JS para uma interface simples e interativa, enquanto o backend com express gerencia os dados das tarefas com MongoDB. O objetivo é praticar a integração entre essas tecnologias e criar uma aplicação funcional para o gerenciamento de tarefas diárias.
+ToDoList is a project developed to apply frontend and backend concepts. It allows users to create, view, edit,
+and delete tasks in a to-do list. The frontend uses HTML, CSS, and JS to provide a simple and interactive interface,
+while the backend, built with Express, manages the task data using MongoDB. The goal is to practice integrating these technologies 
+and create a functional application for managing daily tasks
 
-[Acesse o site aqui !](https://project-to-do-list-fawn.vercel.app/)
+[Acess this site here!](https://project-to-do-list-fawn.vercel.app/)
 
 
 <h2 id="started">🚀 Getting started</h2>
@@ -64,15 +67,16 @@ SERVER_PORT = {port}
 
 <h3>Starting</h3>
 
-Em uma aba do terminal(cmd) executar:
+In one terminal tab, execute:
 
 ```bash
 cd project_toDoList/backend
 npm install .
+npm run prisma generate
 npm run start
 ```
 
-Na pasta do projeto:
+In the project folder: 
 
 ```bash
 cd project_toDoList/frontend
