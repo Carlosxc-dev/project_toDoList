@@ -24,7 +24,7 @@
 
 
 <p align="center">
-    <img src="capa_project_todolist.png" alt="Image Example" width="400px">
+    <img src="image_capa_todolist.png" alt="Image Example" width="400px">
 </p>
 
 <h2 id="started">📌 About</h2>
