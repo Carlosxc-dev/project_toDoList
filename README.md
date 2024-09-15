@@ -24,14 +24,15 @@
 
 
 <p align="center">
-    <img src="image_capa_todolist.png" alt="Image Example" width="400px">
+    <img src="image_capa_todolist.png" alt="Image Example" width="1000px">
 </p>
 
 <h2 id="started">📌 About</h2>
 
-Simple description of what your project do or how to use it.
+ToDoList é um projeto desenvolvido para aplicar conceitos de frontend e backend. Ele permite ao usuário criar, visualizar, editar e excluir tarefas em uma lista de afazeres. No frontend, utiliza HTML, CSS e JS para uma interface simples e interativa, enquanto o backend com express gerencia os dados das tarefas com MongoDB. O objetivo é praticar a integração entre essas tecnologias e criar uma aplicação funcional para o gerenciamento de tarefas diárias.
 
-[![project][PROJECT__BADGE]][PROJECT__URL]
+[Acesse o site aqui !](https://project-to-do-list-fawn.vercel.app/)
+
 
 <h2 id="started">🚀 Getting started</h2>
 
