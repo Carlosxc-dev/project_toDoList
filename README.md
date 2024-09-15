@@ -36,41 +36,79 @@ ToDoList é um projeto desenvolvido para aplicar conceitos de frontend e backend
 
 <h2 id="started">🚀 Getting started</h2>
 
-Here you describe how to run your project locally
-
 <h3>Prerequisites</h3>
 
-Here you list all prerequisites necessary for running your project. For example:
+<ul>
+  <li><a href="https://nodejs.org/">Node.js</a> (LTS version recommended)</li>
+  <li><a href="https://git-scm.com/">Git</a> (version 2.0 or higher)</li>
+  <li><a href="https://www.prisma.io/">Prisma ORM</a> (for database management)</li>
+  <li><a href="https://code.visualstudio.com/">Visual Studio Code (VS Code)</a> (recommended IDE)</li>
+</ul>
 
-- [NodeJS](https://github.com/)
-- [Git 2](https://github.com)
 
 <h3>Cloning</h3>
 
-How to clone your project
-
 ```bash
-git clone your-project-url-in-github
+git clone https://github.com/Carlosxc-dev/project_toDoList.git
+```
+
+
+<h3> Environment Variables</h2>
+
+Use the `process.env.SERVER_PORT` as reference to create your configuration file `.env` with your environment variables
+
+```yaml
+DATABASE_URL="{bancoDados}://{user}:{password}@localhost:{port}/{nameDatabase}?schema=public"
+SERVER_PORT = {port}
 ```
 
 <h3>Starting</h3>
 
-How to start your project
+Em uma aba do terminal(cmd) executar:
 
 ```bash
-cd project-name
-npm some-command-to-run
+cd project_toDoList/backend
+npm install .
+npm run start
+```
+
+Na pasta do projeto:
+
+```bash
+cd project_toDoList/frontend
+abrir no navegador o arquivo index.html para ver a pagina
 ```
 
 <h2 id="routes">📍 Application Routes</h2>
 ​
-| Route                | Description                                           |
-|----------------------|-------------------------------------------------------|
-| `/tasks`             | Retrieves all tasks from the database.                |
-| `/tasks`             | Creates a new task.                                   |
-| `/tasks/:id`         | Deletes a specific task by ID.                        |
-| `/tasks/:id`         | Updates a specific task by ID.                        |
-| `/tasks/number`      | Retrieves the total number of tasks.                  |
+<table>
+  <tr>
+    <th>Route</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><kbd>/tasks</kbd></td>
+    <td>Retrieves all tasks from the database.</td>
+  </tr>
+  <tr>
+    <td><kbd>/tasks</kbd></td>
+    <td>Creates a new task.</td>
+  </tr>
+  <tr>
+    <td><kbd>/tasks/:id</kbd></td>
+    <td>Deletes a specific task by ID.</td>
+  </tr>
+  <tr>
+    <td><kbd>/tasks/:id</kbd></td>
+    <td>Updates a specific task by ID.</td>
+  </tr>
+  <tr>
+    <td><kbd>/tasks/number</kbd></td>
+    <td>Retrieves the total number of tasks.</td>
+  </tr>
+</table>
+
+
 
 
 <h2 id="colab">🤝 Collaborators</h2>
@@ -90,7 +128,7 @@ npm some-command-to-run
 
 <h2 id="contribute">📫 Contribute</h2>
 
-1. `git clone https://github.com/Fernanda-Kipper/text-editor.git`
+1. `git clone https://github.com/Carlosxc-dev/project_toDoList.git`
 2. `git checkout -b feature/NAME`
 3. Follow commit patterns
 4. Open a Pull Request explaining the problem solved or feature made, if exists, append screenshot of visual modifications and wait for the review!
