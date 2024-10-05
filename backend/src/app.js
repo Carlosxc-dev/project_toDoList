@@ -17,6 +17,6 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 ); //
-app.use(router); // toda requisicao do navegador app usa o router para gerenciar
+app.use(router);
 
 module.exports = app;
