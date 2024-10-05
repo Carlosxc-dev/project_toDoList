@@ -10,10 +10,11 @@ const getAll = async () => {
 const createTask = async (task) => {
   const { title } = task;
 
-  const createdtask = await prisma.Task.create({
+  const createdtask = await prisma.task.create({
     data: {
-      title,
+      title: title,
       status: "pendente",
+      created_at: new Date(),
     },
   });
 
@@ -22,7 +23,7 @@ const createTask = async (task) => {
 
 // Deletar uma task do banco de dados
 const deleteTask = async (id) => {
-  const removedTask = await prisma.Task.delete({
+  const removedTask = await prisma.task.delete({
     where: {
       id: id, // ID como String
     },
@@ -35,7 +36,7 @@ const deleteTask = async (id) => {
 const updateTask = async (id, task) => {
   const { title, status } = task;
 
-  const updatedTask = await prisma.Task.update({
+  const updatedTask = await prisma.task.update({
     where: { id: id }, // ID como String
     data: { title, status },
   });
@@ -45,7 +46,7 @@ const updateTask = async (id, task) => {
 
 // Busca quantas tasks existem no banco de dados
 const number_task = async () => {
-  const count = await prisma.Task.count();
+  const count = await prisma.task.count();
   return count;
 };
 
