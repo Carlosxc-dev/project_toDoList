@@ -9,11 +9,12 @@ const url = "http://localhost:3307";
 //api node que faz requisicao para backend
 const fetchTasks = async () => {
   const response = await fetch(`${url}/tasks`, {
-    mode: "no-cors",
-    credentials: "include",
+    // mode: "no-cors",
+    // credentials: "include",
   });
   const tasks = await response.json();
   console.log(tasks);
+  console.log(tasks[1].created_at);
   return tasks;
 };
 
@@ -24,8 +25,8 @@ const addTask = async (event) => {
 
   await fetch(`${url}/tasks`, {
     method: "post",
-    credentials: "include",
-    mode: "no-cors",
+    //credentials: "include",
+    //mode: "no-cors",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(task),
   });
@@ -37,8 +38,8 @@ const addTask = async (event) => {
 const deleteTask = async (id) => {
   await fetch(`${url}/tasks/${id}`, {
     method: "delete",
-    mode: "no-cors",
-    credentials: "include",
+    // mode: "no-cors",
+    // credentials: "include",
   });
 
   loadTasks();
@@ -47,8 +48,8 @@ const deleteTask = async (id) => {
 const updateTask = async ({ id, title, status }) => {
   await fetch(`${url}/tasks/${id}`, {
     method: "put",
-    mode: "no-cors",
-    credentials: "include",
+    // mode: "no-cors",
+    // credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ title, status }),
   });
@@ -58,11 +59,11 @@ const updateTask = async ({ id, title, status }) => {
 
 const number_task = async () => {
   const res = await fetch(`${url}/tasks/number`, {
-    mode: "no-cors",
-    credentials: "include",
+    // mode: "no-cors",
+    // credentials: "include",
   });
   const count = await res.json();
-  number_html.innerText = count;
+  number_html.innerText = count.number;
 };
 
 const formatDate = (dateUTC) => {
@@ -115,14 +116,14 @@ const createSelect = (value) => {
 };
 
 const createRow = (task) => {
-  const { id, title, createdAt, status } = task;
-  console.log(createdAt);
+  const { id, title, created_at, status } = task;
+  console.log(created_at);
 
   const tr = createElement("tr");
   tr.classList.add("tr_style");
 
   const tdTitle = createElement("td", title);
-  const tdCreatedAt = createElement("td", formatDate(createdAt));
+  const tdCreatedAt = createElement("td", formatDate(created_at));
   const tdStatus = createElement("td");
   const tdActions = createElement("td");
 

@@ -7,9 +7,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Task {
+model user {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  email      String
+  name       String
+  password   String
+  tasks      task[]
+}
+model task {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   created_at DateTime @db.Date
   status     String
   title      String
+  id_user    String   @db.ObjectId
+  user       user     @relation(fields: [id_user], references: [id])
 }
+
+
