@@ -1,32 +1,38 @@
+import { PrismaClient } from '@prisma/client';
+import {connectionPrisma} from '../config/conectionMongoDB'
+import { TaskDTO } from '../domain/Task';
+import { ObjectId } from 'mongodb';
+
 class RepositoryTask {
-  constructor(prisma) {
-    this.prisma = prisma;
+  private connection: PrismaClient;
+  constructor() {
+    this.connection = connectionPrisma;
   }
 
-  async create(task) {
-    const { title } = task;
+  async create(title: string): Promise<TaskDTO | null> {
 
-    const createdtask = await prisma.task.create({
+    const task = await this.connection.task.create({
       data: {
+        userId: new ObjectId("123").toString(),
         title: title,
         status: "pendente",
         created_at: new Date(),
       },
     });
 
-    return createdtask;
+    return task;
   }
 
   async read() {
-    const tasks = await prisma.task.findMany();
-    const count = await prisma.task.count();
-    return tasks, count;
+    const tasks = await this.connection.task.findMany();
+    const count = await this.connection.task.count();
+    return { tasks, count };
   }
 
   async update(id, task) {
     const { title, status } = task;
 
-    const updatedTask = await prisma.task.update({
+    const updatedTask = await this.connection.task.update({
       where: { id: id },
       data: { title, status },
     });
@@ -35,7 +41,7 @@ class RepositoryTask {
   }
 
   async delete(id) {
-    const removedTask = await prisma.task.delete({
+    const removedTask = await this.connection.task.delete({
       where: {
         id: id,
       },

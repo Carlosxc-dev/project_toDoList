@@ -1,9 +1,10 @@
+import { NextFunction, Request, Response } from "express";
 import { RepositoryTask } from "../repository/RepositoryTask";
 
 class ControllerUser {
   constructor() {}
 
-  async login(req, res) {
+  async login(req: Request, res: Response, next: NextFunction) {
     try {
       const user = req.body;
       const loggedUser = await user.login(user);
@@ -14,11 +15,11 @@ class ControllerUser {
     }
   }
 
-  async register() {}
+  async register(req: Request, res: Response, next: NextFunction) {}
 
-  async update() {}
+  async update(req: Request, res: Response, next: NextFunction) {}
 
-  async delete() {}
+  async delete(req: Request, res: Response, next: NextFunction) {}
 }
 
 export { ControllerUser };

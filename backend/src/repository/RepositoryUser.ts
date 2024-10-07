@@ -1,12 +1,16 @@
+import { PrismaClient } from "@prisma/client";
+import { connectionPrisma } from "../config/conectionMongoDB";
+
 class RepositoryUser {
-  constructor(prisma) {
-    this.prisma = prisma;
+  private connection: PrismaClient
+  constructor() {
+    this.connection = connectionPrisma;
   }
 
   async create(user) {
     const { name, email, password } = user;
 
-    const createdUser = await prisma.user.create({
+    const createdUser = await this.connection.user.create({
       data: {
         name: name,
         email: email,
@@ -18,14 +22,14 @@ class RepositoryUser {
   }
 
   async read() {
-    const users = await prisma.user.findMany();
+    const users = await this.connection.user.findMany();
     return users;
   }
 
   async update(id, user) {
     const { name, email, password } = user;
 
-    const updatedUser = await prisma.user.update({
+    const updatedUser = await this.connection.user.update({
       where: { id: id },
       data: { name, email, password },
     });
@@ -34,7 +38,7 @@ class RepositoryUser {
   }
 
   async delete(id) {
-    const removedUser = await prisma.user.delete({
+    const removedUser = await this.connection.user.delete({
       where: {
         id: id,
       },

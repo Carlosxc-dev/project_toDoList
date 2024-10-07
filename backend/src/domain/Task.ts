@@ -1,22 +1,13 @@
-interface ITask {
-  id: number;
+interface TaskDTO {
+  id: string;
   title: string;
   status: string;
   created_at: Date;
 }
 
-class Task {
-  private id: number;
-  private title: string;
-  private status: string;
-  private created_at: Date;
-
-  constructor({ id, title, status, created_at }: ITask) {
-    this.id = id;
-    this.title = title;
-    this.status = status;
-    this.created_at = created_at;
-  }
+interface Task {
+  createTask(title: string): Promise<TaskDTO | null>
+  readAll(): Promise<TaskDTO[]>;
 }
 
-export { Task };
+export { Task, TaskDTO };

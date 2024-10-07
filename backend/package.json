@@ -2,13 +2,13 @@
   "name": "todo_list",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "type": "commonjs",
   "engines": {
     "node": "20.x"
   },
   "scripts": {
-    "dev": "nodemon src/server.js",
+    "dev": "tsx watch src/server.ts",
     "postinstall": "prisma generate",
     "build": "prisma generate && node src/server.js>"
   },
@@ -24,7 +24,9 @@
     "mysql2": "^3.5.2",
     "prisma": "^5.19.1",
     "tsc": "^2.0.4",
-    "typescript": "^5.6.2"
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.5",

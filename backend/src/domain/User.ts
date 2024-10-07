@@ -5,26 +5,12 @@ interface IUser {
   password: string;
 }
 
-class User {
-  private id: number;
-  private name: string;
-  private email: string;
-  private password: string;
-
-  constructor({ id, name, email, password }: IUser) {
-    this.id = id;
-    this.name = name;
-    this.email = email;
-    this.password = password;
-  }
-
-  async login() {}
-
-  async register() {}
-
-  async update() {}
-
-  async delete() {}
+interface User {
+  constructor({ id, name, email, password }: IUser)
+  login() 
+  register() 
+  update() 
+  delete() 
 }
 
-export { User };
+export { User, IUser };
