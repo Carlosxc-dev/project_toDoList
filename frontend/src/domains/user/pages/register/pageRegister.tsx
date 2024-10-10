@@ -15,21 +15,28 @@ export default function Register() {
       const url = import.meta.env.VITE_API_REGISTER;
       const response = await fetch(url, {
         method: "POST",
-        credentials: "include",
+        //credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(values),
       });
 
+      const parseResp = await response.json();
       if (response.status === 201) {
         navegate("/");
+      }
+
+      if (response.status === 401) {
+        setError(parseResp.message);
+        throw new Error();
       }
     } catch (error) {
       if ((error as any).status === 400) {
         setError("Invalid credentials");
       } else {
         console.log(error);
+        setError((error as Error).message);
       }
     }
   }

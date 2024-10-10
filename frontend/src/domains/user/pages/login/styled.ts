@@ -94,10 +94,11 @@ export const Form = styled.form`
   }
 
   .erro {
-    color: #ff0000 !important;
+    color: #ff4b4b !important;
     font-size: ${(props) => props.theme.fonts.erro} !important;
     margin-top: 0.8rem;
     align-self: center;
+    font-weight: bold;
   }
 
   button {

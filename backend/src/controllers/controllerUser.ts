@@ -17,24 +17,7 @@ class ControllerUser {
     this.userService = new UserService();
   }
 
-  async login(req: Request, res: Response, next: NextFunction) {
-    try {
-      const data = req.body;
-      const parseData = validationCreateUserSchema.parse(data);
-
-      const hashPassword = await this.auth.hashPassword(parseData.password);
-      parseData.password = hashPassword;
-
-      const result = await this.userService.loginUser(parseData);
-      return res
-        .status(ResponseSuccess.userCreated.statusCode)
-        .json({ message: ResponseSuccess.userCreated.message, data: result });
-    } catch (error) {
-      next(error); // Passa o erro para o middleware de tratamento de erros
-    }
-  }
-
-  async register(req: Request, res: Response, next: NextFunction) {
+  public async login(req: Request, res: Response, next: NextFunction) {
     try {
       const data = req.body;
 
@@ -42,6 +25,7 @@ class ControllerUser {
       let mytoken = "";
 
       const hashedPassword = await this.userService.findHash(parseData.email);
+      console.log(parseData.password);
       const is_password = await this.auth.comparePassword(
         parseData.password,
         hashedPassword
@@ -51,20 +35,35 @@ class ControllerUser {
         throw new AuthenticationError("Password is incorrect");
       }
 
-      const result = await this.userService.createUser(parseData);
+      const result = await this.userService.loginUser(parseData);
 
       if (result) {
         mytoken = this.auth.generateToken(result.email);
       }
-      return res
-        .status(ResponseSuccess.loginSuccess.statusCode)
-        .send({
-          message: ResponseSuccess.loginSuccess.message,
-          data: result,
-          token: mytoken,
-        });
+      return res.status(ResponseSuccess.loginSuccess.statusCode).send({
+        message: ResponseSuccess.loginSuccess.message,
+        data: result,
+        token: mytoken,
+      });
     } catch (error) {
       next(error);
+    }
+  }
+
+  public async register(req: Request, res: Response, next: NextFunction) {
+    try {
+      const data = req.body;
+      const parseData = validationCreateUserSchema.parse(data);
+
+      const hashPassword = await this.auth.hashPassword(parseData.password);
+      parseData.password = hashPassword;
+
+      const result = await this.userService.createUser(parseData);
+      return res
+        .status(ResponseSuccess.userCreated.statusCode)
+        .json({ message: ResponseSuccess.userCreated.message, data: result });
+    } catch (error) {
+      next(error); // Passa o erro para o middleware de tratamento de erros
     }
   }
 

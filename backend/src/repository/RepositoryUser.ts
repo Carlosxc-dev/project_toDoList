@@ -22,7 +22,7 @@ class RepositoryUser {
     try {
       return await connectionPrisma.user.create({
         data: {
-          name: data.name,
+          name: data.name ?? "",
           email: data.email,
           password: data.password,
         },

@@ -12,7 +12,7 @@ class UserService {
   }
 
   public async createUser(data: IUserDTO) {
-    const response = await this.repositoryUser.read(data.email);
+    const response = await this.repositoryUser.findbyusername(data.email);
 
     if (response) {
       throw new NotFoundError("User already exists");

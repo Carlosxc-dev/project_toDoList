@@ -106,11 +106,6 @@ const TodoList = () => {
       <Header>TODO LIST</Header>
 
       <Main>
-        <Count>
-          <TaskCount>Quantidade de tarefas: </TaskCount>
-          <TaskNumber>{taskCount}</TaskNumber>
-        </Count>
-
         <AddForm onSubmit={addTask}>
           <Input
             type="text"
@@ -121,6 +116,12 @@ const TodoList = () => {
           />
           <SubmitButton type="submit">+</SubmitButton>
         </AddForm>
+
+        <Count>
+          <TaskCount>
+            Quantidade de tarefas: <TaskNumber>{taskCount}</TaskNumber>
+          </TaskCount>
+        </Count>
 
         <Table>
           <TableHead>

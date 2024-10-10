@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
 import { useNavigate } from "react-router-dom";
+import { set } from "react-hook-form";
 
 export default function Login() {
   const [error, setError] = useState("");
@@ -18,7 +19,7 @@ export default function Login() {
       const url = import.meta.env.VITE_API_LOGIN;
       const response = await fetch(url, {
         method: "POST",
-        credentials: "include",
+        //credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -49,6 +50,8 @@ export default function Login() {
       }
     } catch (error) {
       console.log(error);
+      //setError((error as Error).message);
+      setError("Invalid credentials");
     }
   }
 

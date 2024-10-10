@@ -15,11 +15,11 @@ app.use(
     origin: "*",
     credentials: false,
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    //allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.use(router);
 
-app.use(errorHandler);  // Error handler middleware should be the last middleware
+app.use(errorHandler); // Error handler middleware should be the last middleware
 
 export { app };

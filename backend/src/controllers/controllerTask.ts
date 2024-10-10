@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import { TaskServices } from "../services/TaskServices";
 import { ResponseSuccess } from "../config/ResponseSuccess";
 
-
 class ControllerTask {
   private taskService: TaskServices;
 
@@ -10,15 +9,15 @@ class ControllerTask {
     this.taskService = new TaskServices();
   }
 
-  // public async getAllTasks(req: Request, res: Response, next: NextFunction) {
-  //   try {
-  //     const tasks = await this.taskService.readAll();
-  //     res.status(200).json(tasks);
-  //   } catch (error) {
-  //     console.error("Erro ao buscar tarefas:", error);
-  //     res.status(500).json({ error: "Erro ao buscar tarefas" });
-  //   }
-  // }
+  public async getAllTasks(req: Request, res: Response, next: NextFunction) {
+    try {
+      const tasks = await this.taskService.readAll();
+      res.status(200).json(tasks);
+    } catch (error) {
+      console.error("Erro ao buscar tarefas:", error);
+      res.status(500).json({ error: "Erro ao buscar tarefas" });
+    }
+  }
 
   async createTask(req: Request, res: Response, next: NextFunction) {
     try {
@@ -26,9 +25,13 @@ class ControllerTask {
       console.log(title);
 
       const createdTask = await this.taskService.createTask(title);
-      
-      return res.status(ResponseSuccess.userCreated.statusCode).json({message: ResponseSuccess.userCreated.message, data: createdTask});
 
+      return res
+        .status(ResponseSuccess.userCreated.statusCode)
+        .json({
+          message: ResponseSuccess.userCreated.message,
+          data: createdTask,
+        });
     } catch (error) {
       next(error);
     }

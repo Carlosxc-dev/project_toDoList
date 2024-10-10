@@ -1,16 +1,15 @@
-import { CustomError } from "../utils/CustomError";
+import { CustomError } from "../config/CustomError";
 
 class ZodError extends CustomError {
-	constructor(public message: string) {
-		super(message);
-		Object.setPrototypeOf(this, ZodError.prototype);
-	}
+  constructor(public message: string) {
+    super(message);
+    Object.setPrototypeOf(this, ZodError.prototype);
+  }
 
-	statusCode = 401;
-	serialize() {
-		return { message: this.message };
-	}
+  statusCode = 401;
+  serialize() {
+    return { message: this.message };
+  }
 }
 
 export { ZodError };
-

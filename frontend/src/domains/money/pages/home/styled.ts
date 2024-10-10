@@ -2,7 +2,14 @@ import styled from "styled-components";
 
 export const Header = styled.header`
   color: #5e60ce;
-  background-color: #0d0d0d;
+  background: radial-gradient(
+    circle,
+    ${(props) => props.theme.colors.secundary} 0%,
+    ${(props) => props.theme.colors.secundary} 50%,
+    ${(props) => props.theme.colors.primary} 90%,
+    ${(props) => props.theme.colors.primary} 100%
+  );
+
   width: 100%;
   margin: 0 auto;
   height: 30vh;
@@ -18,7 +25,7 @@ export const Main = styled.main`
   border-radius: 8px;
   padding: 20px;
   width: 90%;
-  margin: -70px auto;
+  margin: -50px auto;
 
   @media screen and (max-width: 700px) {
     width: 100%;
@@ -28,7 +35,7 @@ export const Main = styled.main`
 
 export const AddForm = styled.form`
   display: flex;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   gap: 15px;
   width: 100%;
 `;
@@ -55,7 +62,7 @@ export const TaskCount = styled.div`
   margin-bottom: 5px;
 `;
 
-export const TaskNumber = styled.div`
+export const TaskNumber = styled.span`
   color: #fff;
 `;
 
