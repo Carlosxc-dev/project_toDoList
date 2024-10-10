@@ -1,16 +1,15 @@
-interface IUser {
-  id: number;
+interface IUserDTO {
+  id?: string;
   name: string;
   email: string;
   password: string;
 }
 
 interface User {
-  constructor({ id, name, email, password }: IUser)
-  login() 
-  register() 
-  update() 
-  delete() 
+  login(data: IUserDTO): Promise<IUserDTO | null>;
+  register(data: IUserDTO): Promise<IUserDTO | null>;
+  //update();
+  //delete();
 }
 
-export { User, IUser };
+export { User, IUserDTO };

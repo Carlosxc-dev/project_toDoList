@@ -1,50 +1,115 @@
-import { PrismaClient } from "@prisma/client";
 import { connectionPrisma } from "../config/conectionMongoDB";
+import { z } from "zod";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { NotFoundError } from "../err/NotFoundError";
+import { BadRequestError } from "../err/badRequestError";
+import { IUserDTO } from "../domain/User";
 
 class RepositoryUser {
-  private connection: PrismaClient
-  constructor() {
-    this.connection = connectionPrisma;
+  private static INSTANCE: RepositoryUser;
+
+  private constructor() {}
+
+  public static getInstance() {
+    if (!RepositoryUser.INSTANCE) {
+      RepositoryUser.INSTANCE = new RepositoryUser();
+    }
+
+    return RepositoryUser.INSTANCE;
   }
 
-  async create(user) {
-    const { name, email, password } = user;
-
-    const createdUser = await this.connection.user.create({
-      data: {
-        name: name,
-        email: email,
-        password: password,
-      },
-    });
-
-    return createdUser;
+  async create(data: IUserDTO): Promise<any> {
+    try {
+      return await connectionPrisma.user.create({
+        data: {
+          name: data.name,
+          email: data.email,
+          password: data.password,
+        },
+      });
+    } catch (err) {
+      if (err instanceof PrismaClientKnownRequestError) {
+        // Verificar o erro específico e lançar um erro customizado, se necessário
+        throw new NotFoundError("Database query error");
+      }
+      throw new BadRequestError("Unknown database error");
+    }
   }
 
-  async read() {
-    const users = await this.connection.user.findMany();
-    return users;
+  async read(emaill: string): Promise<any> {
+    try {
+      return await connectionPrisma.user.findUnique({
+        where: { email: emaill },
+      });
+    } catch (err) {
+      if (err instanceof PrismaClientKnownRequestError) {
+        // Verificar o erro específico e lançar um erro customizado, se necessário
+        throw new NotFoundError("Database query error");
+      }
+      throw new BadRequestError("Unknown database error");
+    }
   }
 
-  async update(id, user) {
-    const { name, email, password } = user;
+  async update(data: IUserDTO): Promise<any> {
+    try {
+      const user = await connectionPrisma.user.update({
+        where: {
+          id: data.id,
+        },
+        data: {
+          name: data.name,
+          password: data.password,
+        },
+      });
 
-    const updatedUser = await this.connection.user.update({
-      where: { id: id },
-      data: { name, email, password },
-    });
-
-    return updatedUser;
+      return user;
+    } catch (err) {
+      if (err instanceof PrismaClientKnownRequestError) {
+        // Verificar o erro específico e lançar um erro customizado, se necessário
+        throw new NotFoundError("Database query error / users not exist");
+      }
+      throw new BadRequestError("Unknown database error");
+    }
   }
 
-  async delete(id) {
-    const removedUser = await this.connection.user.delete({
-      where: {
-        id: id,
-      },
-    });
+  async delete(userid: string): Promise<any> {
+    try {
+      await connectionPrisma.task.deleteMany({
+        where: { id: userid },
+      });
 
-    return removedUser;
+      await connectionPrisma.user.delete({
+        where: {
+          id: userid,
+        },
+      });
+
+      return "User and your moneys deleted";
+    } catch (err) {
+      if (err instanceof PrismaClientKnownRequestError) {
+        // Verificar o erro específico e lançar um erro customizado, se necessário
+        console.log(err);
+
+        throw new NotFoundError(
+          "Database query error ou chave extrangeira em outra tabela"
+        );
+      }
+      throw new BadRequestError("Unknown database error");
+    }
+  }
+
+  async findbyusername(emaill: string): Promise<IUserDTO | null> {
+    try {
+      return await connectionPrisma.user.findUnique({
+        where: { email: emaill },
+      });
+    } catch (err) {
+      if (err instanceof PrismaClientKnownRequestError) {
+        // Verificar o erro específico e lançar um erro customizado, se necessário
+        throw new NotFoundError("Database query error");
+      }
+      throw new BadRequestError("Unknown database error");
+    }
   }
 }
 
