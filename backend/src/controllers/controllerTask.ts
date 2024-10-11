@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { TaskServices } from "../services/TaskServices";
 import { ResponseSuccess } from "../config/ResponseSuccess";
+import { ResponseSuccessMoney } from "../config/ResponseSuccessMoney";
 
 class ControllerTask {
   private taskService: TaskServices;
@@ -11,27 +12,33 @@ class ControllerTask {
 
   public async getAllTasks(req: Request, res: Response, next: NextFunction) {
     try {
-      const tasks = await this.taskService.readAll();
-      res.status(200).json(tasks);
+      const { userId } = req.params;
+      console.log(userId);
+
+      const result = await this.taskService.getAllTask(userId);
+
+      console.log(result);
+
+      res.status(ResponseSuccessMoney.operationCompleted.statusCode).json({
+        message: ResponseSuccessMoney.operationCompleted.message,
+        data: result,
+      });
     } catch (error) {
-      console.error("Erro ao buscar tarefas:", error);
-      res.status(500).json({ error: "Erro ao buscar tarefas" });
+      next(error);
     }
   }
 
   async createTask(req: Request, res: Response, next: NextFunction) {
     try {
-      const { title } = req.body;
-      console.log(title);
+      const { title, userId } = req.body;
+      console.log(title, userId);
 
-      const createdTask = await this.taskService.createTask(title);
+      const createdTask = await this.taskService.createTask(title, userId);
 
-      return res
-        .status(ResponseSuccess.userCreated.statusCode)
-        .json({
-          message: ResponseSuccess.userCreated.message,
-          data: createdTask,
-        });
+      return res.status(ResponseSuccess.userCreated.statusCode).json({
+        message: ResponseSuccess.userCreated.message,
+        data: createdTask,
+      });
     } catch (error) {
       next(error);
     }

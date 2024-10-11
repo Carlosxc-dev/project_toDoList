@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import {
   Header,
   Main,
@@ -15,15 +15,16 @@ import {
   TableCell,
   Select,
   ButtonAction,
-} from "./styled"; // Importe os componentes estilizados
+} from "./styled";
 
 const API_URL = "http://localhost:3307/task"; // ou a URL da sua API
 
 interface Task {
-  id: number;
+  id: string;
   title: string;
   created_at: string;
   status: string;
+  userId: string;
 }
 
 const TodoList = () => {
@@ -33,9 +34,32 @@ const TodoList = () => {
 
   // Função para buscar as tarefas do backend
   const fetchTasks = async () => {
-    const response = await fetch(`${API_URL}/tasks`);
-    const tasksData: Task[] = await response.json();
-    setTasks(tasksData);
+    try {
+      const url = import.meta.env.VITE_API_LIST;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: "6707d8bec0368d92b58853c7", // O ID do usuário está sendo enviado corretamente
+          title: "title",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao buscar as tarefas");
+      }
+
+      const { data } = await response.json();
+
+      // Verifique se 'data' é um array e se possui as tarefas esperadas
+      if (Array.isArray(data)) {
+        setTasks(data);
+      } else {
+        console.error("Dados retornados não são um array", data);
+      }
+    } catch (error) {
+      console.error("Erro ao buscar as tarefas:", error);
+    }
   };
 
   // Função para adicionar nova tarefa
@@ -54,7 +78,7 @@ const TodoList = () => {
   };
 
   // Função para deletar tarefa
-  const deleteTask = async (id: number) => {
+  const deleteTask = async (id: string) => {
     await fetch(`${API_URL}/tasks/${id}`, {
       method: "DELETE",
     });
@@ -134,7 +158,7 @@ const TodoList = () => {
           </TableHead>
 
           <tbody>
-            {tasks.map((task) => (
+            {tasks.map((task: any) => (
               <TableRow key={task.id}>
                 <TableCell>{task.title}</TableCell>
                 <TableCell>{formatDate(task.created_at)}</TableCell>

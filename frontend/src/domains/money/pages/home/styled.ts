@@ -24,7 +24,7 @@ export const Header = styled.header`
 export const Main = styled.main`
   border-radius: 8px;
   padding: 20px;
-  width: 90%;
+  width: 70%;
   margin: -50px auto;
 
   @media screen and (max-width: 700px) {

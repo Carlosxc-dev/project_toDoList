@@ -2,6 +2,9 @@ import { PrismaClient } from "@prisma/client";
 import { connectionPrisma } from "../config/conectionMongoDB";
 import { TaskDTO } from "../domain/Task";
 import { ObjectId } from "mongodb";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { NotFoundError } from "../err/NotFoundError";
+import { BadRequestError } from "../err/BadRequestError";
 
 class RepositoryTask {
   private connection: PrismaClient;
@@ -9,12 +12,10 @@ class RepositoryTask {
     this.connection = connectionPrisma;
   }
 
-  async create(title: string): Promise<TaskDTO | null> {
-    const validUserId = new ObjectId("6512bd43d9caa6e02c990b0a"); // Exemplo de um ObjectId válido
-
+  async create(title: string, userId: string): Promise<TaskDTO | null> {
     const task = await this.connection.task.create({
       data: {
-        userId: validUserId.toString(), // Garante que userId será um ObjectId válido
+        userId: userId,
         title: title,
         status: "pendente",
         created_at: new Date(),
@@ -24,10 +25,20 @@ class RepositoryTask {
     return task;
   }
 
-  async read() {
-    const tasks = await this.connection.task.findMany();
-    const count = await this.connection.task.count();
-    return { tasks, count };
+  async read(id: string): Promise<any> {
+    try {
+      return await connectionPrisma.task.findMany({
+        where: {
+          userId: id,
+        },
+      });
+    } catch (err) {
+      if (err instanceof PrismaClientKnownRequestError) {
+        // Verificar o erro específico e lançar um erro customizado, se necessário
+        throw new NotFoundError("Database query error / users not exist");
+      }
+      throw new BadRequestError("Unknown database error");
+    }
   }
 
   async update(id, task) {

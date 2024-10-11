@@ -5,8 +5,8 @@ const controllerTask = new ControllerTask();
 
 const task = Router();
 
-task.get("/", (req, res, next) => {
-  controllerTask.createTask(req, res, next);
+task.post("/", (req, res, next) => {
+  controllerTask.getAllTasks(req, res, next);
 });
 task.post("/", (req, res, next) => {
   controllerTask.createTask(req, res, next);
